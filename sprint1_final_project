@@ -55,10 +55,9 @@ def get_spent_calories(dist, current_time):
     # Для расчётов вам потребуется значение времени; 
     # получите его из объекта current_time;
     # переведите часы и минуты в часы, в значение типа float.
-    time_hours = current_time.hour + (current_time.minute / 60)
-    return (K_1*WEIGHT + (dist**2 / HEIGHT) * K_2*WEIGHT) * time_hours
-    #return (K_1 * WEIGHT + K_2 * HEIGHT + K_2 * 2 * dist) * time_hours
-    #return (K_1 * WEIGHT + (dist**2 / WEIGHT) * K_2 * WEIGHT) * time_hours
+    #time_hours = current_time.hour + (current_time.minute * 100) / 60 / 100
+    time_hours = current_time.hour + current_time.minute/60
+    return (K_1*WEIGHT + ((dist/ time_hours)**2 / HEIGHT) * K_2*WEIGHT) * time_hours*60
 
 def get_achievement(dist):
     """Получить поздравления за пройденную дистанцию."""
@@ -80,10 +79,10 @@ def show_message(time, steps, dist, kkal, achievement):
     print(f'''
 Время: {time}.
 Количество шагов за сегодня: {steps}.
-Дистанция составила {round(dist, 2)} км.
+Дистанция составила {dist:.2f} км.
 Вы сожгли {kkal:.2f} ккал.
-{achievement}.
-        ''')
+{achievement}
+''')
 
 def accept_package(data):
     """Обработать пакет данных."""
